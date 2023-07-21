@@ -34,7 +34,7 @@ namespace NumberGuessWorkflowActivities
             //var compiledAssembly = compilerResults.CompiledAssembly;
 
             //// Создание нового объекта вашего класса
-            //var myCode = compiledAssembly..CreateInstance("MyNamespace.MyCodeClass");
+            //var myCode = compiledAssembly.CreateInstance("MyNamespace.MyCodeClass");
 
             //// Вызов метода вашего класса
             //myCode.GetType().GetMethod("MyMethod").Invoke(myCode, null);

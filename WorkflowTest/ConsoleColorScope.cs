@@ -15,11 +15,12 @@ namespace WorkflowTest
         }
 
         public ConsoleColor Color { get; set; }
+
         public Activity Body { get; set; }
 
         protected override void Execute(NativeActivityContext context)
         {
-            context.Properties.Add(ConsoleColorProperty.Name, new ConsoleColorProperty(this.Color));
+            context.Properties.Add(ConsoleColorProperty.Name, new ConsoleColorProperty(Color));
 
             if (this.Body != null)
             {

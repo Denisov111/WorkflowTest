@@ -10,10 +10,10 @@ using System.Activities.Expressions;
 
 namespace CodeInvoker
 {
+    [Designer(typeof(InvokeCodeActivityDesigner))]
     public class InvokeCode : CodeActivity
     {
         private string _compilationError;
-
         private NetCodeInvoker _codeInvoker;
 
         internal virtual NetCodeInvoker CodeInvoker

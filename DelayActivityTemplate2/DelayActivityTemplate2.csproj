@@ -2,21 +2,19 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{B0E2B65B-21B9-4068-B118-8A4A22828B22}</ProjectGuid>
+    <ProjectGuid>{2A3C98A5-6063-46DD-A5BB-308884F9E361}</ProjectGuid>
     <ProjectTypeGuids>{32f31d43-81cc-4c15-9de6-3fc5453562b6};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WorkflowTest</RootNamespace>
-    <AssemblyName>WorkflowTest</AssemblyName>
+    <RootNamespace>DelayActivityTemplate2</RootNamespace>
+    <AssemblyName>DelayActivityTemplate2</AssemblyName>
     <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -25,8 +23,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -48,50 +45,13 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConsoleColorProperty.cs" />
-    <Compile Include="ConsoleColorScope.cs" />
-    <Compile Include="CustomTrackingParticipant.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <XamlAppDef Include="Workflow1.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </XamlAppDef>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
     <XamlAppDef Include="Activity1.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </XamlAppDef>
-  </ItemGroup>
-  <ItemGroup>
-    <XamlAppDef Include="Activity2.xaml">
       <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </XamlAppDef>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CodeInvoker\CodeInvoker.csproj">
-      <Project>{eece5698-f7eb-4ba8-bcce-4e967dee4782}</Project>
-      <Name>CodeInvoker</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DelayActivityTemplate2\DelayActivityTemplate2.csproj">
-      <Project>{2a3c98a5-6063-46dd-a5bb-308884f9e361}</Project>
-      <Name>DelayActivityTemplate2</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DelayActivityTemplate\DelayActivityTemplate.csproj">
-      <Project>{52ca34ea-8cae-482d-bdbb-6866b1f93cf5}</Project>
-      <Name>DelayActivityTemplate</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NumberGuessWorkflowActivities\NumberGuessWorkflowActivities.csproj">
-      <Project>{7D7635B3-0CDC-4C14-8225-E54FAA8491C0}</Project>
-      <Name>NumberGuessWorkflowActivities</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

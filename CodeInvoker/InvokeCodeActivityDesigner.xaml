@@ -40,7 +40,8 @@
         </Grid.RowDefinitions>
         <TextBlock Text="Code" /> 
         <TextBox Grid.Row="1"
-                 Text="{Binding Path=ModelItem.Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                 Text="{Binding Path=ModelItem.Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 AcceptsReturn="True"/>
         <Button Content="Редактировать код" Grid.Row="2"
                 Margin="0,5,0,0"/>
     </Grid>

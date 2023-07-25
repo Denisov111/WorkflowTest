@@ -16,7 +16,7 @@ namespace CodeInvoker
         protected override void Execute(CodeActivityContext context)
         {
             // Obtain the runtime value of the Text input argument
-            string text = context.GetValue(this.Text);
+            string text = context.GetValue(Text);
         }
     }
 }

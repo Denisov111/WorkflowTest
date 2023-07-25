@@ -68,20 +68,18 @@ namespace WorkflowTest
                             // Extract workflow variables and arguments as a part of the activity tracking record
                             // VariableName = "*" allows for extraction of all variables in the scope
                             // of the activity
-                            Variables =
-                            {
-                                { all }
-                            }
+                            Variables ={all }
                         }
                     }
-                },
+                }
                 //ActivityIdToWorkflowElementMap = activityIdToWfElementMap
             };
 
             ////As the tracking events are received
-            //_trackingParticipant.TrackingRecordReceived += TrackingParticipant_TrackingRecordReceived;
+            _trackingParticipant.TrackingRecordReceived += TrackingParticipant_TrackingRecordReceived;
 
             WorkflowApplication _wfApp = new WorkflowApplication(new Workflow1());
+            _trackingParticipant.Instance = _wfApp;
             _wfApp.Extensions.Add(_trackingParticipant);
             _wfApp.Completed = WfExecutionCompleted;
 

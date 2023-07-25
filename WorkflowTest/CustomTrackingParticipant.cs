@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.Activities.Hosting;
 
 namespace WorkflowTest
 {
@@ -19,6 +20,8 @@ namespace WorkflowTest
 
         public Dictionary<string, Activity> ActivityIdToWorkflowElementMap { get; set; }
 
+        public WorkflowInstance Instance { get; set; }
+
         protected override void Track(TrackingRecord record, TimeSpan timeout)
         {
             OnTrackingRecordReceived(record, timeout);
@@ -28,6 +31,9 @@ namespace WorkflowTest
         //We also do not worry about Expressions' tracking data
         protected void OnTrackingRecordReceived(TrackingRecord record, TimeSpan timeout)
         {
+            Console.WriteLine(record.GetType().FullName);
+
+            // Этот код выполняется в любом случае
             if (record is ActivityStateRecord recordEntry)
             {
                 string mess = string.Format("[{0}] [{1}] [{2}]" + Environment.NewLine,
@@ -35,27 +41,60 @@ namespace WorkflowTest
                     recordEntry.Activity.Name,
                     recordEntry.State);
                 TrackData += mess;
-                Debug.WriteLine(mess);
+                Console.WriteLine(mess);
+
+                var vars = recordEntry.Variables;
+                if(vars.Count>0)
+                {
+
+                }
+                var res = recordEntry.Arguments;
             }
 
+            if (record is WorkflowInstanceRecord recordInst)
+            {
+                string mess = string.Format("[{0}] [{1}]" + Environment.NewLine,
+                    recordInst.EventTime.ToLocalTime().ToString(),
+                    recordInst.State);
+                //TrackData += mess;
+                Console.WriteLine(mess);
+            }
+
+            //Этот код выполняется, если есть подписчик
             if (TrackingRecordReceived != null)
             {
 #pragma warning disable IDE0019 // Use pattern matching
                 ActivityStateRecord activityStateRecord = record as ActivityStateRecord;
 #pragma warning restore IDE0019 // Use pattern matching
 
-                if (activityStateRecord != null && !activityStateRecord.Activity.TypeName.Contains("System.Activities.Expressions"))
+                try
                 {
-                    if (ActivityIdToWorkflowElementMap.ContainsKey(activityStateRecord.Activity.Id))
+                    if (activityStateRecord != null 
+                        //&& !activityStateRecord.Activity.TypeName.Contains("System.Activities.Expressions")
+                        )
                     {
-                        TrackingRecordReceived(this,
-                            new TrackingEventArgs(record, timeout,
-                            ActivityIdToWorkflowElementMap[activityStateRecord.Activity.Id]));
+                        Activity act = null;
+                        ActivityIdToWorkflowElementMap.TryGetValue(activityStateRecord.Activity.Id, out act);
+
+                        TrackingRecordReceived(this, new TrackingEventArgs(record,timeout, act));
+
+                        // Здесь нужно разобраться с ActivityIdToWorkflowElementMap
+
+                        //if (ActivityIdToWorkflowElementMap.ContainsKey(activityStateRecord.Activity.Id))
+                        //{
+                        //    TrackingRecordReceived(this,
+                        //        new TrackingEventArgs(record, timeout,
+                        //        ActivityIdToWorkflowElementMap[activityStateRecord.Activity.Id]));
+                        //}
+                    }
+                    else
+                    {
+                        TrackingRecordReceived(this, new TrackingEventArgs(record, timeout, null));
                     }
                 }
-                else
+                catch(Exception ex) 
                 {
-                    TrackingRecordReceived(this, new TrackingEventArgs(record, timeout, null));
+                    Debug.WriteLine($"{ex}{Environment.NewLine}{ex.StackTrace}");
                 }
             }
         }

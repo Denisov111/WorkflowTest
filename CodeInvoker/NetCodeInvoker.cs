@@ -55,7 +55,7 @@ namespace CodeInvoker
         private IEnumerable<string> FilterImports(IEnumerable<string> imps)
         {
             Assembly[] currentAssemblies = CompilerRunner.GetCurrentAssemblies();
-            HashSet<string> namespaces = new HashSet<string>(currentAssemblies.SelectMany((Assembly a) => GetNamespaces(a).Distinct()));
+            HashSet<string> namespaces = new HashSet<string>(currentAssemblies.SelectMany(a => GetNamespaces(a).Distinct()));
             return imps.Where((string a) => namespaces.Contains(a));
         }
 

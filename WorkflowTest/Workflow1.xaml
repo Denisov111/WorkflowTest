@@ -13,6 +13,7 @@
   <x:Members>
     <x:Property Name="argument1" Type="InArgument(x:String)" />
     <x:Property Name="argument2" Type="InArgument(x:Boolean)" />
+    <x:Property Name="argument3" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
   </x:Members>
   <sap2010:ExpressionActivityEditor.ExpressionActivityEditor>C#</sap2010:ExpressionActivityEditor.ExpressionActivityEditor>
   <sap2010:WorkflowViewState.IdRef>WorkflowTest.Workflow1_1</sap2010:WorkflowViewState.IdRef>
@@ -38,8 +39,10 @@
       <AssemblyReference>System.Xaml</AssemblyReference>
       <AssemblyReference>System.Xml</AssemblyReference>
       <AssemblyReference>System.Xml.Linq</AssemblyReference>
-      <AssemblyReference>NumberGuessWorkflowActivities</AssemblyReference>
       <AssemblyReference>CodeInvoker</AssemblyReference>
+      <AssemblyReference>DelayActivityTemplate2</AssemblyReference>
+      <AssemblyReference>DelayActivityTemplate</AssemblyReference>
+      <AssemblyReference>NumberGuessWorkflowActivities</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
       <AssemblyReference>WorkflowTest</AssemblyReference>
     </sco:Collection>
@@ -48,6 +51,11 @@
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Default="fff" Name="a" />
       <Variable x:TypeArguments="x:Int32" Default="4" Name="b" />
+      <Variable x:TypeArguments="scg:List(x:String)" Name="list">
+        <Variable.Default>
+          <mca:CSharpValue x:TypeArguments="scg:List(x:String)">new List&lt;string&gt;() { "111","222"}</mca:CSharpValue>
+        </Variable.Default>
+      </Variable>
     </Sequence.Variables>
     <Delay Duration="00:00:01" sap2010:WorkflowViewState.IdRef="Delay_1" />
     <Assign sap2010:WorkflowViewState.IdRef="Assign_1">
@@ -70,14 +78,14 @@
         <InArgument x:TypeArguments="x:String">sssss</InArgument>
       </Assign.Value>
     </Assign>
-    <c:InvokeCode ContinueOnError="{x:Null}" Code="System.Console.WriteLine(&quot;1234567890&quot;);" sap2010:WorkflowViewState.IdRef="InvokeCode_2" Language="CSharp">
+    <c:InvokeCode ContinueOnError="{x:Null}" Code="System.Console.WriteLine(&quot;1234567890&quot;);&#xA;//System.Console.WriteLine(a);&#xA;//a=list.Where(e=&gt;e==&quot;111&quot;).First();&#xA;//System.Console.WriteLine(a);" sap2010:WorkflowViewState.IdRef="InvokeCode_2" Language="CSharp">
       <c:InvokeCode.Arguments>
         <scg:Dictionary x:TypeArguments="x:String, Argument" />
       </c:InvokeCode.Arguments>
     </c:InvokeCode>
     <Delay DisplayName="DelayActivityTemplate" Duration="00:00:10" sap2010:WorkflowViewState.IdRef="Delay_2" />
     <Flowchart sap2010:WorkflowViewState.IdRef="Flowchart_1" StartNode="{x:Null}" />
-    <sads:DebugSymbol.Symbol>d0RDOlxVc2Vyc1xNYXh4eFxzb3VyY2VccmVwb3NcV29ya2Zsb3dUZXN0XFdvcmtmbG93VGVzdFxXb3JrZmxvdzEueGFtbA8vA1EOAgEBMTQxOQIBAzIzMjYCAQI0BTRMAgEWNQU+DgIBDz8FSA4CAQhJBU0UAgEHTgVOcAIBBU8FT1UCAQQ0FTQfAgEXPC88MAIBFTgLOFECARBGMEY1AgEOQgtCUgIBCU45TkMCAQY=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d0RDOlxVc2Vyc1xNYXh4eFxzb3VyY2VccmVwb3NcV29ya2Zsb3dUZXN0XFdvcmtmbG93VGVzdFxXb3JrZmxvdzEueGFtbBAyA1kOAgEBNDQ0OQIBCjUzNTYCAQk4Czh6AgECPAU8TAIBIT0FRg4CARhHBVAOAgEPUQVVFAIBDlYFVnACAQxXBVdVAgELPBU8HwIBIkQvRDACASBAC0BRAgEZTjBONQIBF0oLSlICARBWOVZDAgEN</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -110,7 +118,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="WorkflowTest.Workflow1_1" sap:VirtualizedContainerService.HintSize="676,1445" />
+      <sap2010:ViewStateData Id="WorkflowTest.Workflow1_1" sap:VirtualizedContainerService.HintSize="676,1383" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

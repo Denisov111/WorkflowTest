@@ -18,7 +18,9 @@ namespace CodeInvoker
 
         public override string GetCodeHeader(Dictionary<string, Argument> args, IEnumerable<string> imports)
         {
-            List<Tuple<string, Type, ArgumentDirection>> inArgs = args.Select((KeyValuePair<string, Argument> a) => new Tuple<string, Type, ArgumentDirection>(a.Key, a.Value.ArgumentType, a.Value.Direction)).ToList();
+            List<Tuple<string, Type, ArgumentDirection>> inArgs = args
+                .Select((KeyValuePair<string, Argument> a) => new Tuple<string, Type, ArgumentDirection>(a.Key, a.Value.ArgumentType, a.Value.Direction))
+                .ToList();
             string imports2 = GetImports(imports);
             string arguments = GetArguments(inArgs);
             return imports2 + "namespace UiPath.Code{ public class UiPathCodeRunner{\r\npublic static void Run(" + arguments + "){\r\n";
